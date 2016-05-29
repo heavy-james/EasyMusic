@@ -9,32 +9,32 @@ public class MusicUnit extends Section{
 	private Melody mMelody;
 	
 	
-	public List<Chord> getmChords() {
+	public List<Chord> getChords() {
 		return mChords;
 	}
 
 
-	public void setmChords(List<Chord> mChords) {
+	public void setChords(List<Chord> mChords) {
 		this.mChords = mChords;
 	}
 
 
-	public List<Pattern> getmPatterns() {
+	public List<Pattern> getPatterns() {
 		return mPatterns;
 	}
 
 
-	public void setmPatterns(List<Pattern> mPatterns) {
+	public void setPatterns(List<Pattern> mPatterns) {
 		this.mPatterns = mPatterns;
 	}
 
 
-	public Melody getmMelody() {
+	public Melody getMelody() {
 		return mMelody;
 	}
 
 
-	public void setmMelody(Melody mMelody) {
+	public void setMelody(Melody mMelody) {
 		this.mMelody = mMelody;
 	}
 
