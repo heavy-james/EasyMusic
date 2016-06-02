@@ -1,4 +1,4 @@
-package com.irene.easymusic.test;
+package com.irene.easymusic.activity;
 
 
 import com.irene.easymusic.R;

@@ -40,6 +40,39 @@ public class Sound extends Node{
 	public static final int SOUND_F_DOWN_DOUBLE = 9;
 	public static final int SOUND_G_DOWN_DOUBLE = 11;
 	
+	private static final String[] SOUND_NAMES = {
+			"A","#A","B","C","#C","D","#D","E","F","#F","G,","#G"
+	};
+	
+	
+	
+	public  String getSoundName(){
+		
+		if(mName < 1 || mName > 49){
+			return "";
+		}
+		String suffix = "";
+		switch(mName / 12){
+		case 0:
+			suffix = "_DD";
+			break;
+		case 1:
+			suffix = "_D";
+			break;
+		case 2:
+			suffix = "";
+			break;
+		case 3:
+			suffix = "_U";
+			break;
+		case 4:
+			suffix = "_UU";
+			break;
+		}
+		String soundName = SOUND_NAMES[mName -1 % 12];
+		soundName += suffix;
+		return soundName;
+	}
 	
 	public int getName() {
 		return mName;

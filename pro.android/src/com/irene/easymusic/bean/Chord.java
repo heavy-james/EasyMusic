@@ -25,6 +25,34 @@ public class Chord extends Section {
 		public static final int TYPE_NINE = 9;
 		public static final int TYPE_ELEVEN = 11;
 		public static final int TYPE_THIRTEEN = 13;
+		
+		public static final String TYPE_NAME_THREE = "三和弦";
+		public static final String TYPE_NAME_SEVEN = "七和弦";
+		public static final String TYPE_NAME_NINE = "九和弦";
+		public static final String TYPE_NAME_ELEVEN = "十一和弦";
+		public static final String TYPE_NAME_THIRTEEN = "十三和弦";
+		
+		public static String getTypeName(int type){
+			String name = "";
+			switch(type){
+			case TYPE_THREE:
+				name = TYPE_NAME_THREE;
+				break;
+			case TYPE_SEVEN:
+				name = TYPE_NAME_SEVEN;
+				break;
+			case TYPE_NINE:
+				name = TYPE_NAME_NINE;
+				break;
+			case TYPE_ELEVEN:
+				name = TYPE_NAME_ELEVEN;
+				break;
+			case TYPE_THIRTEEN:
+				name = TYPE_NAME_THIRTEEN;
+				break;
+			}
+			return name;
+		}
 	}
 	
 	
@@ -48,34 +76,128 @@ public class Chord extends Section {
 	
 	public static class Attribute {
 
+		public static String getAttributeName(int attri){
+			if( attri % Three.factor == 0){
+				return Three.getAttributeName(attri);
+			}
+			
+			if( attri % Seven.factor == 0){
+				return Three.getAttributeName(attri);
+			}
+			return "";
+		}
+		
+		public static int getChordType(int attri){
+			if( attri % Three.factor == 0){
+				return Type.TYPE_THREE;
+			}
+			
+			if( attri % Seven.factor == 0){
+				return Type.TYPE_SEVEN;
+			}
+			return 0;
+		}
+		
+		
 		public static class Three {
+			
+			private static final int factor = 37;
+			
 			//增三和弦
-			public static final int ATTRI_AUGMENTED_3 = 4;
+			public static final int ATTRI_AUGMENTED_3 = 4 * 37;
 			//小三和弦
-			public static final int ATTRI_MINOR_3 = 2;
+			public static final int ATTRI_MINOR_3 = 2 * 37;
 			//大三和弦
-			public static final int ATTRI_MAJOR_3 = 3;
+			public static final int ATTRI_MAJOR_3 = 3 * 37;
 			//减三和弦
-			public static final int ATTRI_DIMINISHED_3 = 1;
+			public static final int ATTRI_DIMINISHED_3 = 1 * 37;
+			
+			public static final String ATTRI_NAME_AUGMENTED_3 = "增三和弦";
+			public static final String ATTRI_NAME_MINOR_3 = "小三和弦";
+			public static final String ATTRI_NAME_MAJOR_3 = "大三和弦";
+			public static final String ATTRI_NAME_DIMINISHED_3 = "减三和弦";
+			
+			private static String getAttributeName(int attri){
+				String name = "";
+				switch(attri){
+				case ATTRI_AUGMENTED_3:
+					name = ATTRI_NAME_AUGMENTED_3;
+					break;
+				case ATTRI_MINOR_3:
+					name = ATTRI_NAME_MINOR_3;
+					break;
+				case ATTRI_MAJOR_3:
+					name = ATTRI_NAME_MAJOR_3;
+					break;
+				case ATTRI_DIMINISHED_3:
+					name = ATTRI_NAME_DIMINISHED_3;
+					break;
+				}
+				
+				return name;
+			}
 		}
 
 		public static class Seven {
+			
+			private static final int factor = 47;
+			
 			// 大小七和弦
-			public static final int ATTRI_MAJ_MIN_7 = 1;
+			public static final int ATTRI_MAJ_MIN_7 = 1 * 47;
 			// 大七和弦
-			public static final int ATTRI_MAJOR_7 = 2;
+			public static final int ATTRI_MAJOR_7 = 2 * 47;
 			// 小七和弦
-			public static final int ATTRI_MINOR_7 = 3;
+			public static final int ATTRI_MINOR_7 = 3 * 47;
 			// 小大七和弦
-			public static final int ATTRI_MIN_MAJ_7 = 4;
+			public static final int ATTRI_MIN_MAJ_7 = 4 * 47;
 			// 半减七和弦、减小七和弦
-			public static final int ATTRI_DIM_MIN_7 = 5;
+			public static final int ATTRI_DIM_MIN_7 = 5 * 47;
 			// 减七和弦
-			public static final int ATTRI_DIMINISHED_7 = 6;
+			public static final int ATTRI_DIMINISHED_7 = 6 * 47;
 			// 增七和弦
-			public static final int ATTRI_AUGMENTED_7 = 7;
+			public static final int ATTRI_AUGMENTED_7 = 7 * 47;
 			// 增大七和弦
-			public static final int ATTRI_AUG_MAJ_7 = 8;
+			public static final int ATTRI_AUG_MAJ_7 = 8 * 47;
+			
+			public static final String ATTRI_NAME_MAJ_MIN_7 = "大小七和弦";
+			public static final String ATTRI_NAME_MAJOR_7 = "大七和弦";
+			public static final String ATTRI_NAME_MINOR_7 = "小七和弦";
+			public static final String ATTRI_NAME_MIN_MAJ_7 = "小大七和弦";
+			public static final String ATTRI_NAME_DIM_MIN_7 = "减小七和弦";
+			public static final String ATTRI_NAME_DIMINISHED_7 = "减七和弦";
+			public static final String ATTRI_NAME_AUGMENTED_7 = "增七和弦";
+			public static final String ATTRI_NAME_AUG_MAJ_7 = "增大七和弦";
+			
+			private static String getAttributeName(int attri){
+				String name = "";
+				switch(attri){
+				case ATTRI_MAJ_MIN_7:
+					name = ATTRI_NAME_MAJ_MIN_7;
+					break;
+				case ATTRI_MAJOR_7:
+					name = ATTRI_NAME_MAJOR_7;
+					break;
+				case ATTRI_MINOR_7:
+					name = ATTRI_NAME_MINOR_7;
+					break;
+				case ATTRI_MIN_MAJ_7:
+					name = ATTRI_NAME_MIN_MAJ_7;
+					break;
+				case ATTRI_DIM_MIN_7:
+					name = ATTRI_NAME_DIM_MIN_7;
+					break;
+				case ATTRI_DIMINISHED_7:
+					name = ATTRI_NAME_DIMINISHED_7;
+					break;
+				case ATTRI_AUGMENTED_7:
+					name = ATTRI_NAME_AUGMENTED_7;
+					break;
+				case ATTRI_AUG_MAJ_7:
+					name = ATTRI_NAME_AUG_MAJ_7;
+					break;
+				}
+				return name;
+			}
 		}
 	}
 
@@ -298,7 +420,7 @@ public class Chord extends Section {
 
 	private Chord(Builder builder) {
 		this.mBase = builder.base;
-		this.mChordType = builder.chordType;
+		//this.mChordType = builder.chordType;
 		this.mReverseTag = builder.reverseTag;
 		this.mAttri = builder.attri;
 	}
@@ -464,6 +586,7 @@ public class Chord extends Section {
 
 	private boolean init() {
 		if (isValide()) {
+			mChordType = Attribute.getChordType(mAttri);
 			switch(mChordType){
 			case Type.TYPE_THREE:
 				return initChordThree(mAttri);
@@ -497,41 +620,34 @@ public class Chord extends Section {
 	public int getChordType() {
 		return mChordType;
 	}
+	
+	public String toString(){
+		StringBuilder builder = new StringBuilder();
+		builder.append("根音 base-->" + mBase.getSoundName())
+		.append("和弦类型  ChordType-->" + mChordType + ";\n")
+		.append("和弦属性  attri-->" + Attribute.getAttributeName(mAttri)+ ";\n")
+		.append("转位标志 reverseTag-->" + mReverseTag + ";\n")
+		.append("挂留和弦标志 suspendFlag-->" + mSuspendFlag + ";\n");
+		for(int i = 0; i < mSounds.size(); i++){
+			builder.append("第" + (i*2 + 1) + "个音-->" + mSounds.get(i).getSoundName());
+		}
+		return builder.toString();
+	}
 
 	public static class Builder {
 
 		private Sound base = null;
 		private int attri = 0;
 		private int reverseTag = ReverseLevel.LEVEL_ORIGIN;
-		private int chordType = Type.TYPE_THREE;
 
 		public Builder(Sound base, int attri) {
 			this.base = base;
 			this.attri = attri;
 		}
 
-		public Sound getBase() {
-			return base;
-		}
-
-		public int getAttri() {
-			return attri;
-		}
-
-		public int getReverseTag() {
-			return reverseTag;
-		}
-
-		public int getType() {
-			return chordType;
-		}
-
-		public void Type(int type) {
-			chordType = type;
-		}
-
-		public void Tag(int tag) {
+		public Builder Tag(int tag) {
 			reverseTag = tag;
+			return this;
 		}
 
 		public Chord build() {
