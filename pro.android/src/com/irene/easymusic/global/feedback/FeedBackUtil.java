@@ -42,7 +42,7 @@ public class FeedBackUtil {
 					}
 					continue;
 				}
-				Mail.sendAndCc(smtp, from, to, copyto, subject, content, username, password, filename);
+				//Mail.sendAndCc(smtp, from, to, copyto, subject, content, username, password, filename);
 				LogUtil.d(TAG, "feedbackByMail send mail finished");
 				LogUtil.releaseSource();
 				System.exit(0);

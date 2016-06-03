@@ -45,6 +45,7 @@ public class TestManager {
 	private TestManager(Context context){
 		mContext = context;
 		mTestCaseQueue = new LinkedList<TestCase>();
+		mLock = new Object();
 	}
 
 	public static synchronized TestManager getInstance(Context context){

@@ -3,7 +3,10 @@ package com.irene.easymusic.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.irene.easymusic.global.debug.LogUtil;
+
 public class Chord extends Section {
+	public static final String TAG ="Chord";
 	private List<Sound> mSounds;
 	private Sound mBase;
 	private int mAttri;
@@ -210,8 +213,8 @@ public class Chord extends Section {
 
 	
 	public Sound getNextInnerSound(Sound sound,int distance){
-		Sound temp = new Sound();
-		if(distance == 3){
+		Sound temp = new Sound(0, null);
+		if(sound != null){
 			switch(distance){
 			case DistanceThree.DIS_AUGMENTED:
 				temp.setName(sound.getName() + 5);
@@ -233,7 +236,7 @@ public class Chord extends Section {
 	}
 	
 	public Sound getSuspendSound(){
-		Sound temp = new Sound();
+		Sound temp = new Sound(0, null);
 		if(SUSPEND_2.equals(mSuspendFlag)){
 			switch(mAttri){
 			case DistanceTwo.DIS_MAJOR:
@@ -346,13 +349,14 @@ public class Chord extends Section {
 			result = true;
 			break;
 		default:
+			LogUtil.e(TAG, "build init chord three attribute not defined");
 			break;
 		}
 		return result;
 	}
 	
 	public Sound getChordSevenInnerSound(int position,int attri){
-		Sound temp = new Sound();
+		Sound temp = new Sound(0, null);
 		switch (position) {
 		case 0:
 			break;
@@ -367,7 +371,7 @@ public class Chord extends Section {
 	}
 	
 	public Sound getChordNineInnerSound(int position){
-		Sound temp = new Sound();
+		Sound temp = new Sound(0, null);
 		switch (position) {
 		case 0:
 			break;
@@ -426,7 +430,7 @@ public class Chord extends Section {
 	}
 
 	public boolean isValide() {
-		return !(mBase == null || mAttri < 0 || mAttri > 5);
+		return !(mBase == null || mAttri < Attribute.Three.ATTRI_DIMINISHED_3 || mAttri > Attribute.Seven.ATTRI_AUG_MAJ_7);
 	}
 
 	public int getLength() {
@@ -445,12 +449,15 @@ public class Chord extends Section {
 		if (mReverseTag > 0 && mReverseTag < getLength()) {
 			List<Sound> originOrderSound = mSounds.subList(mReverseTag, getLength());
 			List<Sound> reverseOrderSound = mSounds.subList(0, mReverseTag);
-			mSounds.clear();
-			mSounds.addAll(originOrderSound);
-			mSounds.addAll(reverseOrderSound);
+			List<Sound> result = new ArrayList<Sound>();
+			result.addAll(originOrderSound);
+			result.addAll(reverseOrderSound);
+			mSounds = result;
 			for (Sound sound : reverseOrderSound) {
+				LogUtil.d(TAG, "sort check orgin sound-->" + sound.getSoundName());
 				if (sound.getName() < getReverseBase().getName()) {
 					sound.setName(sound.getName() + 12);
+					LogUtil.d(TAG, "sort up orgin sound-->" + sound.getSoundName());
 				}
 			}
 		}
@@ -566,6 +573,7 @@ public class Chord extends Section {
 			}
 			break;
 		default:
+			LogUtil.e(TAG, "build init chord seven attribute not defined");
 			break;
 		}
 
@@ -598,7 +606,11 @@ public class Chord extends Section {
 				return initChordElevene(mAttri);
 			case Type.TYPE_THIRTEEN:
 				return initChordThirteen(mAttri);
+			default :
+				LogUtil.e(TAG, "build init chord type not defined");	
 			}
+		}else{
+			LogUtil.e(TAG, "build init invalide");
 		}
 		return false;
 	}
@@ -629,7 +641,7 @@ public class Chord extends Section {
 		.append("转位标志 reverseTag-->" + mReverseTag + ";\n")
 		.append("挂留和弦标志 suspendFlag-->" + mSuspendFlag + ";\n");
 		for(int i = 0; i < mSounds.size(); i++){
-			builder.append("第" + (i*2 + 1) + "个音-->" + mSounds.get(i).getSoundName());
+			builder.append("第" + (i*2 + 1) + "个音-->" + mSounds.get(i).getSoundName() + ", 音值-->" + mSounds.get(i).getName() + "; \n");
 		}
 		return builder.toString();
 	}
@@ -645,7 +657,7 @@ public class Chord extends Section {
 			this.attri = attri;
 		}
 
-		public Builder Tag(int tag) {
+		public Builder ReverseTag(int tag) {
 			reverseTag = tag;
 			return this;
 		}
@@ -655,6 +667,8 @@ public class Chord extends Section {
 			if (result.init()) {
 				result.sort();
 				return result;
+			}else{
+				LogUtil.e(TAG, "build init error");
 			}
 			return null;
 		}

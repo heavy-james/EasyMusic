@@ -46,6 +46,15 @@ public class Sound extends Node{
 	
 	
 	
+	public boolean isValide(){
+		return mName >= SOUND_A_DOWN_DOUBLE && mName <= SOUND_A_UP_DOUBLE;
+	}
+	
+	public Sound(int name, Cadence cadence){
+		mName = name;
+		mCadence = cadence;
+	}
+	
 	public  String getSoundName(){
 		
 		if(mName < 1 || mName > 49){
@@ -69,7 +78,7 @@ public class Sound extends Node{
 			suffix = "_UU";
 			break;
 		}
-		String soundName = SOUND_NAMES[mName -1 % 12];
+		String soundName = SOUND_NAMES[(mName -1) % 12];
 		soundName += suffix;
 		return soundName;
 	}

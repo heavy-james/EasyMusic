@@ -10,10 +10,11 @@ public class ChordTest extends TestCase{
 	
 	@Override
 	public void run() {
-		Sound sound = new Sound();
-		sound.setName(Sound.SOUND_C);
-		Chord chord = new Chord.Builder(sound, Chord.Attribute.Three.ATTRI_MAJOR_3).build();
-		LogUtil.d(TAG, chord.toString());
+		Sound sound = new Sound(Sound.SOUND_C, null);
+		Chord chord = new Chord.Builder(sound, Chord.Attribute.Three.ATTRI_MAJOR_3).ReverseTag(Chord.ReverseLevel.LEVEL_ONE).build();
+		if(chord != null){
+			LogUtil.d(TAG, chord.toString());
+		}
 	}
 
 }
