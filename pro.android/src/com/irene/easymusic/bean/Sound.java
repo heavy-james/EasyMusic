@@ -105,7 +105,15 @@ public class Sound extends Node{
 	}
 
 
-
+	public String toString(){
+		String result =  "sound value-->" + mName + "; sound name-->" +getSoundName();
+		if(mCadence != null){
+			result += mCadence.toString();
+		}
+		result += "; \n";
+		return result;
+	}
+	
 	@Override
 	public String getTypeName() {
 		// TODO Auto-generated method stub

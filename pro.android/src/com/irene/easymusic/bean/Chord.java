@@ -85,7 +85,7 @@ public class Chord extends Section {
 			}
 			
 			if( attri % Seven.factor == 0){
-				return Three.getAttributeName(attri);
+				return Seven.getAttributeName(attri);
 			}
 			return "";
 		}

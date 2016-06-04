@@ -2,6 +2,7 @@ package com.irene.easymusic.activity;
 
 import com.irene.easymusic.test.TestManager;
 import com.irene.easymusic.test.bean.ChordTest;
+import com.irene.easymusic.test.bean.KeyTest;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ public class TestActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		TestManager.getInstance(this.getApplicationContext()).addCase(new ChordTest());
+		TestManager.getInstance(this.getApplicationContext()).addCase(new KeyTest());
 	}
 	
 	
