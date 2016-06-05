@@ -1,0 +1,23 @@
+﻿#歌曲 SongName=歌曲名称
+#注释 Key=歌曲调子 KeyAttri=大小调属性 Rhythm=节拍 Speed=速度(拍数/分) ParaKeyStart=变调段落开始 ParaKeyEnd=变调段落结束 PartAttri=声部  SinglePart=单声部，MultiPart=多声部, SingleKey=单调子，MultiKey=变调子 SingleRhythm=单拍子，MultiRhythm=复拍子 
+#注释 音阶 1234567，高八度记号_U,低八度记号_D,高十六度记号_UU,低十六度记号_DD
+#注释 拍子 无标记一拍，[-]延音线一拍， | 小节线， [_]半时记号， [.]附点音符， 【&**&】连音线，0休止符
+#注释 循环 ｛: 循环开始， :｝循环结束。｛1:接第一段，记号， ｛2:接第二段记号 ｛｛歌曲开始， ｝｝歌曲结束
+#注释 段 MelodyPara1 第1段旋律，LyricsPara1 第一段歌词
+
+#============================================================================
+#歌曲示例
+SongName=一闪一闪亮晶晶
+Key=C
+SimpleKey=true
+KeyAttri=自然大调
+Rhythm=2/4
+SimpleRhythm=true
+Speed=60
+SinglePart=true
+MelodyPart1={{11|55|66|5-|44|33|22|1-
+LyricsPart1={{一闪|一闪|亮晶|晶-|满天|都是|小星|星-
+MelodyPart2=55|44|33|2-|55|44|33|2-
+LyricsPart2=挂在|天上|放光|明-|好像|许多|小眼|睛-
+MelodyPart3=11|55|66|5-|44|33|22|1-}}
+LyricsPart3=一闪|一闪|亮晶|晶-|满天|都是|小星|星-}}

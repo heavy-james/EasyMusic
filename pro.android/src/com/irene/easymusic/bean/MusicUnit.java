@@ -6,6 +6,20 @@ public class MusicUnit extends Section{
 
 	private List<Chord> mChords;
 	private List<Pattern> mPatterns;
+	private Lyric mLyric;
+	public Lyric getmLyric() {
+		return mLyric;
+	}
+
+
+	public void setLyric(Lyric lyric) {
+		this.mLyric = lyric;
+	}
+
+	public Lyric getLyric() {
+		return mLyric;
+	}
+
 	private Melody mMelody;
 	
 	

@@ -4,12 +4,13 @@ import java.io.File;
 
 import com.irene.easymusic.global.debug.CrashHandler;
 import com.irene.easymusic.global.debug.LogUtil;
-
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.ComponentCallbacks;
 import android.content.res.Configuration;
 
-public class WiKiApplication extends Application
+@SuppressLint("NewApi")
+public class EasyMusic extends Application
 {
 
 	static {

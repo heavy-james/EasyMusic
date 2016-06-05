@@ -4,10 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pattern extends Section {
+	
+	public static class Attribute{
+		public static final int RHYTHM_2_4 = 1;
+		public static final int RHYTHM_3_4 = 2;
+		public static final int RHYTHM_4_4 = 3;
+		public static final int RHYTHM_6_8 = 4;
+		
+		public static final String RHYTHM_NAME_2_4 = "2/4";
+		public static final String RHYTHM_NAME_3_4 = "3/4";
+		public static final String RHYTHM_NAME_4_4 = "4/4";
+		public static final String RHYTHM_NAME_6_8 = "6/8";
+	}
+	
 	List<Cadence> mCandences;
 	
 	public static final String PATTERN_DENOMINATOR = "dinominator";
 	public static final String PATTERN_MOLECULE = "molecule";
+	
 	
 	private int molecule = 0;
 	private int dinominator = 1;
@@ -34,7 +48,14 @@ public class Pattern extends Section {
 		for(int i = 0; i < molecule; i++){
 			Cadence temp = new Cadence();
 			temp.setLength(Cadence.Length.LENGTH_ONE_BEAT);
-			if(dinominator == 4 && molecule == 4){//四四拍初始化
+			if(dinominator == 2 && molecule == 4){//四二拍初始化
+				switch(i){
+				case 0:
+					temp.setForce(Cadence.Force.FORCE_STRONG);
+				case 1:
+					temp.setForce(Cadence.Force.FORCE_WEAK);
+				}
+			}else if(dinominator == 4 && molecule == 4){//四四拍初始化
 				switch(i){
 				case 0:
 					temp.setForce(Cadence.Force.FORCE_STRONG);
@@ -45,7 +66,7 @@ public class Pattern extends Section {
 				case 3:
 					temp.setForce(Cadence.Force.FORCE_WEAK);
 				}
-			}else if(dinominator == 4 && molecule <= 3){//四三拍和四二拍初始化
+			}else if(dinominator == 4 && molecule == 3){//四三拍初始化
 				switch(i){
 				case 0:
 					temp.setForce(Cadence.Force.FORCE_STRONG);

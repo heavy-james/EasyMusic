@@ -3,37 +3,40 @@ package com.irene.easymusic.bean;
 import java.util.List;
 
 public class MusicParagraph extends Section{
+	
+	public static final String PROP_NAME_PART = "part";
+	
 	private int mKey;
 	private int mPartTag;
 	private List<MusicSentence> mSententces;
 	
 	
 	
-	public int getmKey() {
+	public int getKey() {
 		return mKey;
 	}
 
 
 
-	public void setmKey(int mKey) {
+	public void setKey(int mKey) {
 		this.mKey = mKey;
 	}
 
 
 
-	public int getmPartTag() {
+	public int getPartTag() {
 		return mPartTag;
 	}
 
 
 
-	public void setmPartTag(int mPartTag) {
+	public void setPartTag(int mPartTag) {
 		this.mPartTag = mPartTag;
 	}
 
 
 
-	public List<MusicSentence> getmSententces() {
+	public List<MusicSentence> getSententces() {
 		return mSententces;
 	}
 
