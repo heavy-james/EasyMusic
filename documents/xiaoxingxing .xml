@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?> 
-<song 
+<song xmlns:easymusic="http://com.irrene.easymusic/ns/numbered_notation"
 easymusic:name="一闪一闪亮晶晶"
 easymusic:key="c"
 easymusic:key_type="single"
 easymusic:key_attri="自然大调"
 easymusic:rhythm="2/4"
 easymusic:rhythm_type="single"
-easymusic:speed=60
+easymusic:speed="60"
 easymusic:part_type="single">
+	<paragraph easymusic:part="0"  easymusic:repeat="false">
+		<sentence>
+			<melody>11|55|66|5-|44|33|22|1-</melody>
+			<lyrics>一闪|一闪|亮晶|晶-|满天|都是|小星|星-</lyrics>
+		</sentence>
 
-<paragraph easymusic:part=0 easymusic:repeat="false">
-	<melody>11|55|66|5-|44|33|22|1-</melody>
-	<lyrics>一闪|一闪|亮晶|晶-|满天|都是|小星|星-</lyrics>
-</paragraph>
+		<sentence>
+			<melody>55|44|33|2-|55|44|33|2-</melody>
+			<lyrics>挂在|天上|放光|明-|好像|许多|小眼|睛-</lyrics>
+		</sentence>
 
-<paragraph easymusic:part=0 easymusic:repeat="false">
-	<melody=fase>55|44|33|2-|55|44|33|2-</melody>
-	<lyrics=fase>挂在|天上|放光|明-|好像|许多|小眼|睛-</lyrics>
-</paragraph>
-
-<paragraph easymusic:part=0 easymusic:repeat="false">
-	<melody>11|55|66|5-|44|33|22|1-</melody>
-	<lyrics>一闪|一闪|亮晶|晶-|满天|都是|小星|星-</lyrics>
-</paragraph>
-
+		<sentence>
+			<melody>11|55|66|5-|44|33|22|1-</melody>
+			<lyrics>一闪|一闪|亮晶|晶-|满天|都是|小星|星-</lyrics>
+		</sentence>
+	</paragraph>
 </song>

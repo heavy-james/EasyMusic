@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/com.android.toolchain.gcc.985024129/CYGWIN/delimiter=;
+environment/project/com.android.toolchain.gcc.985024129/CYGWIN/operation=replace
+environment/project/com.android.toolchain.gcc.985024129/CYGWIN/value=E\:\\develop\\cygwin\\bin
+environment/project/com.android.toolchain.gcc.985024129/PATH/delimiter=;
+environment/project/com.android.toolchain.gcc.985024129/PATH/operation=replace
+environment/project/com.android.toolchain.gcc.985024129/PATH/value=E\:\\develop\\cygwin\\bin;E\:/develop/Java/bin/client;E\:/develop/Java/bin;E\:/develop/Java/lib/i386;C\:\\Program Files\\NVIDIA Corporation\\PhysX\\Common;C\:\\windows\\system32;C\:\\windows;C\:\\windows\\System32\\Wbem;C\:\\windows\\System32\\WindowsPowerShell\\v1.0\\;C\:\\Program Files\\Intel\\OpenCL SDK\\2.0\\bin\\x86;D\:\\develop\\python27;C\:\\Program Files\\Microsoft SQL Server\\100\\Tools\\Binn\\;C\:\\Program Files\\Microsoft SQL Server\\100\\DTS\\Binn\\;C\:\\Program Files\\TortoiseSVN\\bin;E\:\\develop\\Java\\bin;E\:\\develop\\android-sdk-windows\\platform-tools;E\:\\develop\\eclipse
+environment/project/com.android.toolchain.gcc.985024129/append=true
+environment/project/com.android.toolchain.gcc.985024129/appendContributed=true
