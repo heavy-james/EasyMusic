@@ -15,6 +15,13 @@ public class Chord extends Section {
 	private int mThirdDistance;
 	private int mReverseTag;
 	private int mChordType;
+	
+	//小节内和弦转换的时长控制，外部设定和取用，非和弦固有属性
+	private int mLength = 0;
+	
+	//小节内和弦转换的时长控制，外部设定和取用，非和弦固有属性
+	private int mStartBeat = 0;
+	
 	private String mSuspendFlag = null;
 	
 	
@@ -271,6 +278,22 @@ public class Chord extends Section {
 		return mSounds.get(position);
 	}
 	
+	//获取和弦持续时长
+	public int getLength(){
+		return mLength;
+	}
+	
+	//设置和弦持续时长
+	public void setLength(int startBeat,int length){
+		mLength = length;
+		mStartBeat = startBeat;
+	}
+	
+	//获取和弦起始位置
+	public int getStartBeat(){
+		return mStartBeat;
+	}
+	
 	public boolean initChordThree(int attri){
 		boolean result = false;
 		mSounds = new ArrayList<Sound>();
@@ -433,7 +456,7 @@ public class Chord extends Section {
 		return !(mBase == null || mAttri < Attribute.Three.ATTRI_DIMINISHED_3 || mAttri > Attribute.Seven.ATTRI_AUG_MAJ_7);
 	}
 
-	public int getLength() {
+	private int getInnerSoundNums() {
 		return getSounds().size();
 	}
 
@@ -446,7 +469,7 @@ public class Chord extends Section {
 	}
 
 	public void sort() {
-		if (mReverseTag > 0 && mReverseTag < getLength()) {
+		if (mReverseTag > 0 && mReverseTag < getInnerSoundNums()) {
 			List<Sound> originOrderSound = mSounds.subList(mReverseTag, getLength());
 			List<Sound> reverseOrderSound = mSounds.subList(0, mReverseTag);
 			List<Sound> result = new ArrayList<Sound>();

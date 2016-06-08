@@ -15,6 +15,10 @@ public class Section extends Node{
 	public void addChild(Node node,int position){
 		
 	}
+	
+	public int getLength(){
+		return 0;
+	}
 
 	@Override
 	public String getTypeName() {

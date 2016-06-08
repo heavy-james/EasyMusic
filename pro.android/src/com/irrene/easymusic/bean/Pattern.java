@@ -24,9 +24,18 @@ public class Pattern extends Section {
 	public static final String PATTERN_DENOMINATOR = "dinominator";
 	public static final String PATTERN_MOLECULE = "molecule";
 	
-	
 	private int molecule = 0;
 	private int dinominator = 1;
+	
+	//一个节拍的固有拍数
+	private int mInnerLength = 0;
+	
+	//用于复拍子的解决
+	private int mControlLength = 0;
+	
+	//用于复拍子的解决
+	private int mStartBeat = 0;
+	
 	
 	private Pattern(int molecule,int dinominator){
 		this.molecule = molecule;
@@ -41,6 +50,25 @@ public class Pattern extends Section {
 	public List<Cadence> getmCandences() {
 		return mCandences;
 	}
+	
+	public int getLength(){
+		return mControlLength == 0 ? mInnerLength : mControlLength;
+	}
+	
+	//节拍类型的起始位置，在复拍子的小节中检查
+	public int getStartBeat(){
+		return mStartBeat;
+	}
+	
+	public boolean setControlLength(int startBeat,int controlLength){
+		if(startBeat + controlLength <= mInnerLength){
+			mStartBeat = startBeat;
+			mControlLength = controlLength;
+			return true;
+		}
+		return false;
+	}
+	
 
 	private boolean initCadences(){
 		if(molecule < 1 || dinominator > 8 || molecule > dinominator){
@@ -94,6 +122,7 @@ public class Pattern extends Section {
 				}
 			}
 			mCandences.add(temp);
+			mInnerLength += temp.getLength();
 		}
 		return true;
 	}

@@ -15,6 +15,7 @@ import java.util.Properties;
  * Speed=速度(拍数/分)
  * 音阶 1234567 高八度记号_U,低八度记号_D,高十六度记号_UU,低十六度记号_DD 
  * 拍子 无标记一拍，[-]延音线一拍， | 小节线，[_]半时记号， [.]附点音符， 【&**&】连音线，0休止符
+ * 	由上级信息传递，用来初始化下级对象数据，取用时检查标志位，并且逐级验证，以下级对象数据对象为准。强弱关系等复杂变化的关系，可以在表达时动态确定。
  */
 
 public class NumberedNotation {
@@ -102,16 +103,15 @@ public class NumberedNotation {
 			for(int i = 0; i < melodyUnits.length; i++){
 				String melody = melodyUnits[i];
 				String lyric = lyricUnits[i];
-				MusicUnit unit = new MusicUnit();
+				MusicUnit unit = new MusicUnit.Builder(pattern).build();
 			}
 		}
 		return null;
 	}
 	
-	public List<Sound> parseSounds(int key, Pattern pattern){
+	public List<Sound> parseSounds(int key, Pattern pattern,String soundStr){
 		List<Sound> result = new LinkedList<Sound>();
 		return result;
-		//由上级信息传递，用来初始化下级对象数据，取用时检查标志位，并且逐级验证，以下级对象数据对象为准。强弱关系等复杂变化的关系，可以在表达时动态确定。
 	}
 	
 	public List<Word> parseWords(int key,Pattern pattern,String wordStr){

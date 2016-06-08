@@ -8,9 +8,9 @@ easymusic:rhythm="2/4"
 easymusic:rhythm_type="single"
 easymusic:speed="60"
 easymusic:part_type="single">
-	<paragraph easymusic:part="0"  easymusic:repeat="false">
+	<paragraph easymusic:part="0"  easymusic:repeat="false" key="empty">
 		<sentence>
-			<melody>11|55|66|5-|44|33|22|1-</melody>
+			<melody>1 1 | 5 5 | 6 6 | 5 - | 4 4 | 3 3 | 2 2 | 1 - </melody>
 			<lyrics>一闪|一闪|亮晶|晶-|满天|都是|小星|星-</lyrics>
 		</sentence>
 

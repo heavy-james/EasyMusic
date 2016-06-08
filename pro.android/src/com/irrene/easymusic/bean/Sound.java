@@ -4,6 +4,7 @@ public class Sound extends Node {
 
 	private int mName;
 	private Cadence mCadence;
+	public static final int SOUND_BLANK = 0;
 	public static final int SOUND_A_UP = 49;
 	public static final int SOUND_B_UP = 51;
 	public static final int SOUND_C_UP = 52;
@@ -39,6 +40,8 @@ public class Sound extends Node {
 	public static final int SOUND_E_DOWN_DOUBLE = 8;
 	public static final int SOUND_F_DOWN_DOUBLE = 9;
 	public static final int SOUND_G_DOWN_DOUBLE = 11;
+	
+
 
 	private static final String[] SOUND_NAMES_MARK_UP = { "A", "#A", "B", "C",
 			"#C", "D", "#D", "E", "F", "#F", "G,", "#G" };
@@ -107,6 +110,13 @@ public class Sound extends Node {
 
 	public Cadence getCadence() {
 		return mCadence;
+	}
+	
+	public int getLength(){
+		if(null != mCadence){
+			return mCadence.getLength();
+		}
+		return 0;
 	}
 
 	public void setCadence(Cadence mCadence) {
