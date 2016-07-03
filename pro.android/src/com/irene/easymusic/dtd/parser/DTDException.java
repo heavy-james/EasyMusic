@@ -7,6 +7,15 @@ public class DTDException extends Throwable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public static final int ERROR_CODE_FORMAT = 1;
+	
+	public static final String ERROR_MSG_FORMAT = "DTD file format error";
+	
+	public DTDException(int errorCode,String errorMsg){
+		this.errorCode = errorCode;
+		this.errorMsg = errorMsg;
+	}
+	
 	public int errorCode;
 	
 	public String errorMsg;
