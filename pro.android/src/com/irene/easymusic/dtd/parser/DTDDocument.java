@@ -52,8 +52,7 @@ public class DTDDocument {
 			String content = mCurrentParseString.substring(startPos, endPos);
 			DTDNode node = null;
 			if(content.startsWith("<!--") && content.endsWith("-->")){
-				node = new DTDNode(DTDNode.NODE_TYPE_COMMENT, null);
-				node.setData(content.substring("<!--".length(),content.length() - "-->".length()));
+				node = getCommentNode(content);
 			}else if(content.startsWith("<!ATTLIST")){
 				
 			}else if(content.startsWith("<!ENTITY") && content.contains("%")){
@@ -125,5 +124,44 @@ public class DTDDocument {
 		if (mInputStream != null) {
 			mInputStream.close();
 		}
+	}
+	
+	
+	public static final String REGULAR_NAME = "(\\w+(-\\w+)*)";
+	
+	private static final String REGULAR_ATTR_ENUM_TYPE = "(\\(\\s*" + REGULAR_NAME  + "\\s*(\\|\\s*" + REGULAR_NAME + "\\s*)*\\s*\\)"
+			+"|\\s*CDATA\\s*|\\s*ID\\s*|\\s*IDREF\\s*|\\s*IDREFS\\s*|\\s*NMTOKEN\\s*|\\s*NMTOKENS\\s*|\\s*NOTATION\\s*|\\s*xml:\\w+\\s*)";
+	
+	private static final String REGULAR_ATTR_ENUM_VALUE = "(\\(\\s*" + REGULAR_NAME  + "\\s*(\\|\\s*" + REGULAR_NAME + "\\s*)*\\s*\\)|\\s*#REQUIRED\\s*|\\s*#IMPLIED\\s*|\\s*#FIXED\\s*\\w*)";
+	
+	private static final String REGULAR_ATTRI_NAME_TYPE_VALUE = "(\\s*" + REGULAR_NAME + "\\s+" + REGULAR_ATTR_ENUM_TYPE + "\\s+" + REGULAR_ATTR_ENUM_VALUE + "\\s*)";
+	
+	private static final String REGULAR_ENTITY_REFERENCE =  "%\\w+(-\\w+)*;";
+	
+	private static final String REGULAR_ATTR_CONTENT = "(\\s*" + REGULAR_ATTRI_NAME_TYPE_VALUE + "|" + REGULAR_ENTITY_REFERENCE + "\\s*)";
+	
+	private DTDNode getAttriNode(String content){
+		return null;
+	}
+	
+	private DTDNode getElementNode(String content){
+		return null;
+	}
+	
+	private DTDNode getCommentNode(String content){
+		DTDNode node = null;
+		if(content != null){
+			node = new DTDNode(DTDNode.NODE_TYPE_COMMENT, null);
+			node.setData(content.substring("<!--".length(),content.length() - "-->".length()));
+		}
+		return node;
+	}
+	
+	private DTDNode getEntityNode(String content){
+		return null;
+	}
+	
+	private boolean processEntityRef(DTDNode parent, String ref){
+		return false;
 	}
 }
