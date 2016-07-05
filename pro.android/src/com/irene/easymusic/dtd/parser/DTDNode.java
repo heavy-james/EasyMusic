@@ -23,25 +23,36 @@ public class DTDNode {
 	private boolean mIsValid = false;
 	private String mName;
 	private List<DTDNode> mChilds;
-	private String mData;
+	private String mStrData;
+	
+	/**
+	 * restore data for different node
+	 * 
+	 * NODE_TYPE_ATTRIBUTE is List<Attri>
+	 */
+	private Object mObjData;
+	
+	
 	private int mDataType = DATA_TYPE_TEXT_DATA;
+	private String mDTDDocument;
 
-	public DTDNode(int typeFlag,String name) {
+	public DTDNode(int typeFlag, String name, String documentName) {
+		mDTDDocument = documentName;
 		mName = name;
 		mTypeFlag = typeFlag;
 		checkIsValid();
 	}
 
-	public void addChild(DTDNode node){
-		if(node != null){
-			if(mChilds == null){
+	public void addChild(DTDNode node) {
+		if (node != null) {
+			if (mChilds == null) {
 				mChilds = new LinkedList<DTDNode>();
 			}
 			mChilds.add(node);
 		}
-		
+
 	}
-	
+
 	private void checkIsValid() {
 	}
 
@@ -52,16 +63,24 @@ public class DTDNode {
 	public int getNodeType() {
 		return mTypeFlag;
 	}
-	
-	public String getData(){
-		return mData;
+
+	public String getStringData() {
+		return mStrData;
+	}
+
+	public void setStringData(String dataStr) {
+		this.mStrData = dataStr;
 	}
 	
-	public void setData(String data){
-		this.mData = data;
+	public Object getObjData(){
+		return mObjData;
+	}
+
+	public void setObjData(Object dataObj){
+		mObjData = dataObj;
 	}
 	
-	public int getDataType(){
+	public int getDataType() {
 		return mDataType;
 	}
 
