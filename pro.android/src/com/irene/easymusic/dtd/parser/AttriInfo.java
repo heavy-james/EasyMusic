@@ -3,7 +3,7 @@ package com.irene.easymusic.dtd.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Attri {
+public class AttriInfo {
 
 	public static final int ATTRI_REQURED = 1;
 	public static final int ATTRI_IMPLIED = 2;
@@ -57,7 +57,7 @@ public class Attri {
 	private int mExistenceFlag = ATTRI_IMPLIED;
 	private List<String> mAttrisValues;
 
-	public Attri(String elementName, int type, String atttriName) {
+	public AttriInfo(String elementName, int type, String atttriName) {
 		mElementName = elementName;
 		mAttriName = atttriName;
 		mType = type;

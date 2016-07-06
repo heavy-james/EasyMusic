@@ -12,8 +12,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.util.Log;
+
 public class DTDDocument {
 
+	public static final String TAG = "DTDDocument";
 	private String mFilePath;
 	private InputStream mInputStream;
 	private BufferedInputStream mBufferedInputStream;
@@ -126,26 +129,48 @@ public class DTDDocument {
 
 	public static final String REGULAR_XML_NAME = "\\s*xml:\\w+\\s*";
 
-	public static final String REGULAR_ENUM_NAMES = "\\(\\s*" + REGULAR_NAME + "\\s*(\\|\\s*" + REGULAR_NAME
+	public static final String REGULAR_ENUM_NAMES = "\\(\\s*" + REGULAR_NAME + "(\\s*\\|\\s*" + REGULAR_NAME
 			+ "\\s*)*\\s*\\)";
 
-	private static final String REGULAR_ENTITY_REFERENCE = "\\s*%\\w+(-\\w+)*;\\s*";
+	private static final String REGULAR_ENTITY_REFERENCE = "%\\w+(-\\w+)*;*";
 
 	public static final String REGULAR_ATTRI_NAME = "(" + REGULAR_NAME + "|" + REGULAR_XML_NAME + ")";
 
 	private static final String REGULAR_ATTR_ENUM_VALUE = "("
 			+ REGULAR_ENUM_NAMES
-			+ "|"
+			+ "|\\s*"
 			+ REGULAR_ENTITY_REFERENCE
-			+ "|\\s*CDATA\\s*|\\s*ID\\s*|\\s*IDREF\\s*|\\s*IDREFS\\s*|\\s*NMTOKEN\\s*|\\s*NMTOKENS\\s*|\\s*NOTATION\\s*)";
+			+ "\\s*|\\s*CDATA\\s*|\\s*ID\\s*|\\s*IDREF\\s*|\\s*IDREFS\\s*|\\s*NMTOKEN\\s*|\\s*NMTOKENS\\s*|\\s*NOTATION\\s*)";
 
 	private static final String REGULAR_ATTR_ENUM_EXISTENCE = "(\\s*#REQUIRED\\s*|\\s*#IMPLIED\\s*|\\s*#FIXED\\s*\\w*)";
 
 	private static final String REGULAR_ATTRI_NAME_VALUE_EXISTENCE = "\\s*" + REGULAR_ATTRI_NAME + "\\s+"
 			+ REGULAR_ATTR_ENUM_VALUE + "\\s+" + REGULAR_ATTR_ENUM_EXISTENCE + "\\s*";
 
-	private static final String REGULAR_ATTR_CONTENT = "(\\s*" + REGULAR_ATTRI_NAME_VALUE_EXISTENCE + "|"
+	private static final String REGULAR_ATTR_CONTENT = "(\\s*" + REGULAR_ATTRI_NAME_VALUE_EXISTENCE + "|\\s*"
 			+ REGULAR_ENTITY_REFERENCE + "\\s*)";
+
+	private static final String REGULAR_ELEMENT_REFERENCE_NAME = "\\s*\\w+(-\\w+)*[\\?\\*\\+]\\s*";
+
+	private static final String REGULAR_ELEMENT_SUB_ELEMENT_DEF = REGULAR_ELEMENT_REFERENCE_NAME + ",?\\s*|\\s*"
+			+ REGULAR_ENTITY_REFERENCE + "\\s*,?\\s*";
+
+	private static final String REGULAR_ELEMENT_CONTENT = "\\s*" + REGULAR_NAME + "\\s*\\(("
+			+ REGULAR_ELEMENT_SUB_ELEMENT_DEF + ")+\\s*\\)\\s*";
+
+	private static final String REGULAR_DOCTYPE_DECLARETION = "[^/]+(//[^/]+)+";
+
+	private static final String REGULAR_FILE_URI = "\\s*.*\\s*|\\s*http.*\\s*";
+
+	private static final String REGULAR_ENTITY_DEFINITION = "\\s*%\\s*" + REGULAR_NAME + "\\s*\"\\s*"
+			+ REGULAR_ATTRI_NAME_VALUE_EXISTENCE + "\\s*\"\\s*";
+
+	private static final String REGULAR_ENTITY_INSTRUMENT = "\\s*%\\s*" + REGULAR_NAME + "\\s*\""
+			+ "(\\s*IGNORE|INCLUDE\\s*)" + "\\s*\"";
+
+	private static final String REGULAR_ENTITY_DOCUMENT_DEF = "\\s*%\\s*" + REGULAR_NAME
+			+ "\\s*(\\s*PUBLIC|SYSTEM\\s*)\\s*(\\s*\"\\s*" + REGULAR_DOCTYPE_DECLARETION + "\"\\s*)?\\s*\"\\s*"
+			+ REGULAR_FILE_URI + "\\s*\"\\s*";
 
 	private DTDNode getAttriNode(String content) throws DTDException {
 
@@ -177,7 +202,7 @@ public class DTDDocument {
 				} else {
 					throw new DTDException(DTDException.ERROR_CODE_DEFINITION_NOT_FOUND,
 							DTDException.ERROR_MSG_DEFINITION_NOT_FOUND + ",no attri found in attri list");
-					
+
 				}
 			}
 
@@ -190,25 +215,26 @@ public class DTDDocument {
 					Matcher attriMatcher = attriDefPattern.matcher(attrStr);
 					String attrValue = attriMatcher.group(3);
 					if (attriMatcher.matches()) {
-						Attri attri = null;
+						AttriInfo attri = null;
 						if (Pattern.matches(REGULAR_ENUM_NAMES, attrValue)) {
 							// 值定义
-							attri = new Attri(elementName, Attri.TYPE_TEXT, attriMatcher.group(1));
-							String[] values = attrValue.substring("(".length(), attrValue.length()- ")".length()).split("|");
-							for(String value : values){
+							attri = new AttriInfo(elementName, AttriInfo.TYPE_TEXT, attriMatcher.group(1));
+							String[] values = attrValue.substring("(".length(), attrValue.length() - ")".length())
+									.split("|");
+							for (String value : values) {
+								// 此处包含了被引用的实体名称，后续还需要处理
 								attri.addAttriValue(value);
 							}
-							
 
 						} else if (Pattern.matches(REGULAR_ENTITY_REFERENCE, attrValue)) {
 							// 实体引用
-							attri = new Attri(elementName, Attri.TYPE_ENTITY_REFERENCE, attriMatcher.group(1));
+							attri = new AttriInfo(elementName, AttriInfo.TYPE_ENTITY_REFERENCE, attriMatcher.group(1));
 							DTDNode entityRef = new DTDNode(DTDNode.NODE_TYPE_ENTITY_REFERENCE, attrValue, mFilePath);
 							node.addChild(entityRef);
 
-						} else{
+						} else {
 							// 固定类型
-							attri = new Attri(elementName, Attri.parseAttriType(attrValue), attrValue);
+							attri = new AttriInfo(elementName, AttriInfo.parseAttriType(attrValue), attrValue);
 
 						}
 					} else if (entityRefPattern.matcher(attrStr).matches()) {
@@ -222,7 +248,66 @@ public class DTDDocument {
 		return node;
 	}
 
-	private DTDNode getElementNode(String content) {
+	private DTDNode getElementNode(String content) throws DTDException {
+
+		if (content != null && content.startsWith("<!ELEMENT") && content.endsWith(">")) {
+
+			Matcher matcher = Pattern.compile(REGULAR_ELEMENT_CONTENT).matcher(content);
+			DTDNode node = null;
+			if (matcher.matches()) {
+				matcher = Pattern.compile(REGULAR_NAME).matcher(content);
+				String elementName = null;
+				int startPos = 0;
+				if (matcher.find()) {
+					elementName = matcher.group();
+					node = new DTDNode(DTDNode.NODE_TYPE_ELEMENT, elementName, mFilePath);
+					Log.d(TAG, "find element name-->" + elementName);
+					startPos = matcher.start() + elementName.length();
+					Log.d(TAG, "sub element def position-->" + startPos);
+				}
+				if (node != null) {
+					Pattern entityRefPattern = Pattern.compile(REGULAR_ENTITY_REFERENCE);
+					Pattern subElementRefPattern = Pattern.compile(REGULAR_ELEMENT_REFERENCE_NAME);
+					matcher = Pattern.compile(REGULAR_ELEMENT_SUB_ELEMENT_DEF).matcher(content);
+					boolean res = matcher.find(startPos);
+					List<ElementInfo> subElementInfos = null;
+					while (res) {
+						Matcher entityMatcher = entityRefPattern.matcher(matcher.group());
+						Matcher subElementMatcher = subElementRefPattern.matcher(matcher.group());
+						if (entityMatcher.find()) {
+							Log.d(TAG, "find entity ref-->" + matcher.group());
+							DTDNode entityRefNode = new DTDNode(DTDNode.NODE_TYPE_ENTITY_REFERENCE,
+									entityMatcher.group(), mFilePath);
+							node.addChild(entityRefNode);
+						} else if (subElementMatcher.find()) {
+							int existenceFlag = 0;
+							if (matcher.group().contains("*")) {
+								existenceFlag = DTDNode.EXISTENCE_FLAG_ANY;
+							} else if (matcher.group().contains("?")) {
+								existenceFlag = DTDNode.EXISTENCE_FLAG_ONCE;
+							} else if (matcher.group().contains("+")) {
+								existenceFlag = DTDNode.EXISTENCE_FLAG_NOT_NULL;
+							} else {
+								throw new DTDException(DTDException.ERROR_CODE_DEFINITION_NOT_FOUND,
+										"no existence definitionFound");
+							}
+							ElementInfo elementInfo = new ElementInfo(subElementMatcher.group(), existenceFlag);
+							if (subElementInfos == null) {
+								subElementInfos = new LinkedList<ElementInfo>();
+							} else {
+								subElementInfos.add(elementInfo);
+							}
+							Log.d(TAG, "find sub element ref-->" + matcher.group());
+						}
+						res = matcher.find();
+					}
+					if (subElementInfos != null) {
+						node.setObjData(subElementInfos);
+					}
+				}
+			}
+			return node;
+		}
 		return null;
 	}
 
@@ -236,6 +321,9 @@ public class DTDDocument {
 	}
 
 	private DTDNode getEntityNode(String content) {
+		if (content != null) {
+
+		}
 		return null;
 	}
 
