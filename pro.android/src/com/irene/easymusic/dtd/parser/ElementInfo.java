@@ -11,4 +11,12 @@ public class ElementInfo {
 	
 	private String mName;
 	private int mExistenceFlag = 0;
+	
+	public String getName(){
+		return mName;
+	}
+	
+	public int getExistenceFlag(){
+		return mExistenceFlag;
+	}
 }

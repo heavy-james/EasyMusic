@@ -9,9 +9,6 @@ public class DTDNode {
 	public static final int EXISTENCE_FLAG_ONCE = 0x00000010;
 	public static final int EXISTENCE_FLAG_ONLY_ONCE = 0x00000011;
 
-	public static final int DATA_TYPE_TEXT_DATA = 0x00000000;
-	public static final int DATA_TYPE_PARSABLE_DATA = 0x00000001;
-
 	public static final int NODE_TYPE_ATTRIBUTE = 1;
 	public static final int NODE_TYPE_COMMENT = 2;
 	public static final int NODE_TYPE_ELEMENT = 3;
@@ -33,7 +30,7 @@ public class DTDNode {
 	private Object mObjData;
 	
 	
-	private int mDataType = DATA_TYPE_TEXT_DATA;
+	private int mDataType = DTDConstants.DataType.TEXT;
 	private String mDTDDocument;
 
 	public DTDNode(int typeFlag, String name, String documentName) {
@@ -93,6 +90,6 @@ public class DTDNode {
 	}
 
 	public boolean hasParsableData() {
-		return (mTypeFlag & DATA_TYPE_PARSABLE_DATA) > 0;
+		return !(mTypeFlag == DTDConstants.DataType.CDATA || mTypeFlag == DTDConstants.DataType.TEXT);
 	}
 }
