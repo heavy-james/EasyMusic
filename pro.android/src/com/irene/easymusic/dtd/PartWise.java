@@ -1,5 +1,15 @@
 package com.irene.easymusic.dtd;
 
+import com.irene.easymusic.dtd.attribute.Attributes;
+import com.irene.easymusic.dtd.barline.Barline;
+import com.irene.easymusic.dtd.common.Commen;
+import com.irene.easymusic.dtd.direction.Direction;
+import com.irene.easymusic.dtd.identity.Identity;
+import com.irene.easymusic.dtd.layout.Layout;
+import com.irene.easymusic.dtd.link.Link;
+import com.irene.easymusic.dtd.note.Note;
+import com.irene.easymusic.dtd.score.Score;
+
 /**
  * <!-- MusicXML™ Partwise DTD
  * 
@@ -57,5 +67,57 @@ public class PartWise {
 	 * <!-- The common DTD module contains the entities and elements that are
 	 * shared among multiple component DTDs. -->
 	 */
+	
+	private Commen mCommen;
+	
+	
+	/**
+	 * <!-- The layout DTD module contains formatting information for pages,
+	 * systems, staves, and measures. -->
+	 */
+	private Layout mLayout;
+	
+	/**
+	 * <!-- The identity DTD module contains identification and metadata
+	 * elements. -->
+	 */
+	private Identity mIdentity;
+	
+	/**
+	 * <!-- The attributes DTD module contains elements that usually change at
+	 * the start of a measure, such as key signatures, time signatures, and
+	 * clefs. -->
+	 */
+	private Attributes mAttributes;
+	
+	/**
+	 * <!-- The link DTD module contains XLink attributes. -->
+	 */
+	private Link mLink;
+	
+	/**
+	 * <!-- The note DTD module contains the bulk of the elements and attributes
+	 * for a musical scores relating to individual notes and rests. -->
+	 */
+	private Note mNote;
+	
+	/**
+	 * <!-- The barline DTD module contains elements regarding barline style,
+	 * repeats, and multiple endings. -->
+	 */
+	private Barline mBarline;
+	
+	/**
+	 * <!-- The direction DTD module contains elements for musical directions
+	 * not tied to individual notes. This includes harmony and chord symbol
+	 * elements. -->
+	 */
+	private Direction mDirection;
+	
+	/**
+	 * <!-- The score DTD module contains the top-level elements for musical
+	 * scores, including the root document elements. -->
+	 */
+	private Score mScore;
 
 }

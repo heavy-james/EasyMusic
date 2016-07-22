@@ -19,6 +19,12 @@ public class Commen {
 	public static final String TAG = "CommenEntity";
 	public static final String FILE_PATH = "common.mod";
 
+	private Isolate1 mIsolate1;
+	
+	private Isolate2 mIsolate2;
+	
+	private Date mDate;
+	
 	/**
 	 * <!-- Entities -->
 	 */
@@ -33,7 +39,14 @@ public class Commen {
 	 * <!ENTITY % yyyy-mm-dd "(#PCDATA)">
 	 */
 	public static class Date {
-
+		private String mData;
+		public Date(String pcdata){
+			mData = pcdata;
+		}
+		
+		public String getTime(){
+			return mData;
+		}
 	}
 
 	/**
@@ -45,9 +58,17 @@ public class Commen {
 	 * 
 	 * <!ENTITY % tenths "CDATA">
 	 * 
+	 * 行间距
 	 */
 	public static class Tenths {
-
+		private String mData;
+		public Tenths(String cdata){
+			mData = cdata;
+		}
+		
+		public int getTenths(){
+			return Integer.valueOf(mData);
+		}
 	}
 
 	/**
@@ -55,7 +76,14 @@ public class Commen {
 	 * <!ENTITY % layout-tenths "(#PCDATA)">
 	 */
 	public static class LayoutTenths {
-
+		private Tenths mTenths;
+		public LayoutTenths(String pcdata){
+			mTenths = new Tenths(pcdata);
+		}
+		
+		public int getTenths(){
+			return mTenths.getTenths();
+		}
 	}
 
 	/**
@@ -78,7 +106,17 @@ public class Commen {
 	 * <!ENTITY % start-stop "(start | stop)">
 	 */
 	public static class StartStop {
-
+		
+		public static final String START = "start";
+		public static final String STOP = "stop";
+		protected String mEntry;
+		public StartStop(String entry){
+			mEntry = entry;
+		}
+		
+		public String getEntry(){
+			return mEntry;
+		}
 	}
 
 	/**
@@ -86,15 +124,25 @@ public class Commen {
 	 * <!ENTITY % start-stop-continue "(start | stop | continue)">
 	 * 
 	 */
-	public static class StartStopConinue {
-
+	public static class StartStopConinue extends StartStop{
+		public static final String CONTINUE = "continue";
+		public StartStopConinue(String entry) {
+			super(entry);
+		}
+		
 	}
 
 	/**
 	 * <!ENTITY % start-stop-single "(start | stop | single)">
 	 */
-	public static class StartStopSingle {
+	public static class StartStopSingle extends StartStop{
 
+		public static final String SINGLE = "single";
+		public StartStopSingle(String entry) {
+			super(entry);
+			// TODO Auto-generated constructor stub
+		}
+		
 	}
 
 	/**
